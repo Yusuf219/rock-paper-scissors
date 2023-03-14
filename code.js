@@ -1,5 +1,5 @@
 function getComputerChoice() {
-    compMove = Math.floor(Math.random() * 3)
+    compMove = Math.floor(Math.random() * 3) // 0 Rock, 1 Paper, 2 Scissors (0 to 2)
     console.log(compMove)
     let moveList = ["Rock", "Paper", "Scissors"]
     alert(`The computer's move was ${moveList[compMove]}.`);
@@ -7,8 +7,9 @@ function getComputerChoice() {
 }
 
 function playerSelection() {
-    yourMove = parseInt(prompt("Enter your move (0 = Rock, 1 = Paper, 2 = Scissors"))
-    if (yourMove === 0 || yourMove === 1 || yourMove === 2) {
+    yourMove = prompt("Rock, Paper, or Scissors?");
+    yourMove = yourMove.toLowerCase();
+    if (yourMove === "rock" || yourMove === "paper" || yourMove === "scissors") {
         console.log("Move accepted.");
         return yourMove
     } else {
@@ -19,7 +20,7 @@ function playerSelection() {
 function gameResult (player, comp) {
     let x = player;
     let y = comp;
-    if (player === 0) { // Rock
+    if (player === "rock") { // Rock
         switch (y) {
             case 0: // Rock
                 text = "It's a draw! Both rocks clash.";
@@ -33,7 +34,7 @@ function gameResult (player, comp) {
             default: // For debugging purposes
                 text = "Something unexpected occurred."
         }
-    } else if (player === 1) { // Paper
+    } else if (player === "paper") { // Paper
         switch (y) {
             case 0: // Rock
                 text = "You win! The paper engulfs the rock.";
