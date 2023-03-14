@@ -17,19 +17,23 @@ function playerSelection() {
         playerSelection()
     }}
 
-function gameResult (player, comp) {
+function playRound (player, comp) {
     let x = player;
     let y = comp;
+    let text;
+    let result = "lose";
     if (player === "rock") { // Rock
         switch (y) {
             case 0: // Rock
                 text = "It's a draw! Both rocks clash.";
+                result = "draw";
                 break
             case 1: // Paper
                 text = "You lose! The paper engulfs the rock.";
                 break
             case 2: // Scissors
                 text = "You win! The rock smashes the scissors.";
+                result = "win";
                 break
             default: // For debugging purposes
                 text = "Something unexpected occurred."
@@ -38,9 +42,11 @@ function gameResult (player, comp) {
         switch (y) {
             case 0: // Rock
                 text = "You win! The paper engulfs the rock.";
+                result = "win";
                 break
             case 1: // Paper
                 text = "It's a draw! Both papers hug.";
+                result = "draw";
                 break
             case 2: // Scissors
                 text = "You lose! The scissors cut the paper.";
@@ -55,18 +61,46 @@ function gameResult (player, comp) {
                 break
             case 1: // Paper
                 text = "You win! The scissors cut the paper.";
+                result = "win";
                 break
             case 2: // Scissors
                 text = "It's a draw! Both scissors get close.";
+                result = "draw";
                 break
             default: // For debugging purposes
                 text = "Something unexpected occurred."
         }
     }
+    counter += 1;
+    if (result === "win") {
+        yourWins += 1;
+    } else if (result === "lose") {
+        compWins += 1;
+    } else {
+    }
     alert(text);
+    alert(counter);
 }
 
-playerSelection()
-getComputerChoice()
-gameResult (yourMove, compMove)
+function game() {
+    if (counter < 5) { // Keep track of rounds played (Best of Five)
+        playerSelection()
+        getComputerChoice()
+        playRound (yourMove, compMove)
+        game()
+        console.log(`${yourWins} - ${compWins}`)
+    } else {
+        if (yourWins > compWins) {
+            alert(`You win! ${yourWins} - ${compWins}`)
+        } else if (yourWins < compWins) {
+            alert(`You lose! ${yourWins} - ${compWins}`)
+        } else {
+            alert(`It's a draw! ${yourWins} - ${compWins}`)
+        }
+    }
+}
 
+let counter = 0;
+let yourWins = 0;
+let compWins = 0;
+game()
