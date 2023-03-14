@@ -1,13 +1,15 @@
 function getComputerChoice() {
     compMove = Math.floor(Math.random() * 3)
     console.log(compMove)
+    let moveList = ["Rock", "Paper", "Scissors"]
+    alert(`The computer's move was ${moveList[compMove]}.`);
     return compMove
 }
 
 function playerSelection() {
     yourMove = parseInt(prompt("Enter your move (0 = Rock, 1 = Paper, 2 = Scissors"))
     if (yourMove === 0 || yourMove === 1 || yourMove === 2) {
-        alert("Move accepted.");
+        console.log("Move accepted.");
         return yourMove
     } else {
         alert("Enter your input properly.");
