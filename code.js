@@ -29,7 +29,7 @@ function playerSelection(yourMove) {
             finalScore.textContent = `You lose!`
             finalResult = 'lose'
         } else {
-            finalScore.textContent = `It's a draw!`
+            finalScore.textContent = `It was a draw!`
             finalResult = 'draw'
     }}}
 
