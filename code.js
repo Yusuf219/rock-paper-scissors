@@ -1,21 +1,37 @@
 function getComputerChoice() {
     compMove = Math.floor(Math.random() * 3) // 0 Rock, 1 Paper, 2 Scissors (0 to 2)
-    console.log(compMove)
     let moveList = ["Rock", "Paper", "Scissors"]
-    alert(`The computer's move was ${moveList[compMove]}.`);
+    moveOutput = `The computer's move was ${moveList[compMove]}.\n\n`;
     return compMove
 }
 
-function playerSelection() {
-    yourMove = prompt("Rock, Paper, or Scissors?");
-    yourMove = yourMove.toLowerCase();
-    if (yourMove === "rock" || yourMove === "paper" || yourMove === "scissors") {
-        console.log("Move accepted.");
-        return yourMove
+function playerSelection(yourMove) {
+    if (counter >= 5) {
+        console.log(finalResult)
+        if (finalResult === 'win') {
+            gameOver.textContent = 'You already won, stop that!'
+        }
+        else if (finalResult === 'lose') {
+            gameOver.textContent = 'Stop right there, loser!'
+        }
+        else {
+            gameOver.textContent = 'It was a draw?!'
+        }
     } else {
-        alert("Enter your input properly.");
-        playerSelection()
-    }}
+        getComputerChoice()
+        playRound(yourMove, compMove)
+        console.log(`${yourWins} - ${compWins} - ${draws} ${counter}`)
+
+        if (yourWins > compWins) {
+            finalScore.textContent = `You win!`
+            finalResult = 'win'
+        } else if (yourWins < compWins) {
+            finalScore.textContent = `You lose!`
+            finalResult = 'lose'
+        } else {
+            finalScore.textContent = `It's a draw!`
+            finalResult = 'draw'
+    }}}
 
 function playRound (player, comp) {
     let x = player;
@@ -76,10 +92,12 @@ function playRound (player, comp) {
         yourWins += 1;
     } else if (result === "lose") {
         compWins += 1;
+    } else if (result === "draw") {
+        draws += 1;
     } else {
     }
-    alert(text);
-    alert(counter);
+    moveOutput += text
+    getScore()
 }
 
 function game() {
@@ -88,14 +106,14 @@ function game() {
         getComputerChoice()
         playRound (yourMove, compMove)
         game()
-        console.log(`${yourWins} - ${compWins}`)
     } else {
+        console.log(`${yourWins} - ${compWins} - ${draws}`)
         if (yourWins > compWins) {
-            alert(`You win! ${yourWins} - ${compWins}`)
+            alert(`You win! ${yourWins} - ${compWins} - ${draws}`)
         } else if (yourWins < compWins) {
-            alert(`You lose! ${yourWins} - ${compWins}`)
+            alert(`You lose! ${yourWins} - ${compWins} - ${draws}`)
         } else {
-            alert(`It's a draw! ${yourWins} - ${compWins}`)
+            alert(`It's a draw! ${yourWins} - ${compWins} - ${draws}`)
         }
     }
 }
@@ -103,4 +121,39 @@ function game() {
 let counter = 0;
 let yourWins = 0;
 let compWins = 0;
-game()
+let draws = 0;
+let moveOutput;
+let finalResult
+// game()
+
+const rock = document.querySelector('#rock')
+rock.addEventListener('click', () => {
+    playerSelection('rock')
+})
+
+const paper = document.querySelector('#paper')
+paper.addEventListener('click', () => {
+    playerSelection('paper')
+})
+
+const scissors = document.querySelector('#scissors')
+scissors.addEventListener('click', () => {
+    playerSelection('scissors')
+})
+
+const gameOver = document.querySelector('#gameOver');
+const compResult = document.querySelector('#compMove');
+const finalScore = document.querySelector('#finalScore');
+const win = document.querySelector('#win'); 
+const lose = document.querySelector('#lose');
+const draw = document.querySelector('#draw');
+
+function getScore() { 
+    if (moveOutput != undefined) {
+        compResult.textContent = `${moveOutput}`;
+    }
+    win.textContent = `Win: ${yourWins}`;
+    lose.textContent = `Lose: ${compWins}`;
+    draw.textContent = `Draw: ${draws}`;
+}
+getScore()

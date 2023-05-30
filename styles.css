@@ -1,0 +1,7 @@
+.button-selection {
+    display: flex;
+    justify-content: start;
+    margin: 0 16px;
+    gap: 64px;
+    margin-right: 400px;
+}
